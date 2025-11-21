@@ -1,10 +1,39 @@
 import { GEMINI_CONFIG } from '../config.js';
+import envLoader from '../env.js';
 
 export default class GeminiService {
     constructor() {
-        this.apiKeys = GEMINI_CONFIG.API_KEYS;
+        this.apiKeys = [];
         this.baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
         this.model = GEMINI_CONFIG.MODEL;
+        this.initialized = false;
+        this.init();
+    }
+
+    async init() {
+        // Load environment variables
+        await envLoader.load();
+
+        // Get API keys from environment
+        this.apiKeys = envLoader.getArray('VITE_GEMINI_API_KEY');
+
+        // Fallback to config if no env keys found (for backward compatibility)
+        if (this.apiKeys.length === 0 && GEMINI_CONFIG.API_KEYS.length > 0) {
+            console.warn('No API keys found in .env file, using fallback from config');
+            this.apiKeys = GEMINI_CONFIG.API_KEYS;
+        }
+
+        if (this.apiKeys.length === 0) {
+            console.error('No Gemini API keys configured! Please add them to .env file');
+        }
+
+        this.initialized = true;
+    }
+
+    async waitForInit() {
+        while (!this.initialized) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
     }
 
     getRandomKey() {
@@ -12,6 +41,8 @@ export default class GeminiService {
     }
 
     async generateTaunt(context) {
+        await this.waitForInit();
+
         const apiKey = this.getRandomKey();
         if (!apiKey) return null;
 
@@ -68,6 +99,8 @@ export default class GeminiService {
     }
 
     async generateTauntBatch(category, count = 3) {
+        await this.waitForInit();
+
         const apiKey = this.getRandomKey();
         if (!apiKey) return [];
 

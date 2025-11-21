@@ -44,7 +44,16 @@ git clone https://github.com/allrounder687/snake-game.git
 cd snake-game
 ```
 
-2. Start the local server:
+2. **Set up API keys** (Required for AI commentary):
+```bash
+# Copy the example env file
+copy .env.example .env
+
+# Edit .env and add your Gemini API keys
+# Get free API keys from: https://makersuite.google.com/app/apikey
+```
+
+3. Start the local server:
 ```bash
 # Windows
 start-server.bat
@@ -134,6 +143,19 @@ Special thanks to:
 ## 📄 License
 
 MIT License - Feel free to use and modify!
+
+## 🔒 Security
+
+**API Key Protection:**
+- API keys are stored in `.env` file (not committed to GitHub)
+- The `.env` file is automatically ignored by Git
+- Never commit your `.env` file or share your API keys publicly
+- Use `.env.example` as a template for new installations
+
+**For Contributors:**
+- Always use `.env` for sensitive data
+- Never hardcode API keys in source files
+- Review changes before committing to ensure no secrets are exposed
 
 ## 🐛 Known Issues
 

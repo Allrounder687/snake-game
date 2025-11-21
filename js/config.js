@@ -117,12 +117,10 @@ export const THEMES = [
 export const SNAKE_TYPES = ['classic', 'neon', 'cobra'];
 
 // Gemini API Configuration
+// IMPORTANT: API keys should be stored in .env file (see .env.example)
+// The keys will be loaded at runtime by the GeminiService class
 export const GEMINI_CONFIG = {
-    API_KEYS: [
-        'AIzaSyA7jzzpU93tW_kLo0nhaveNHmdfKhDAKMM',
-        'AIzaSyAgR3tcRE7RUfuhmq2shz0DsSpZV8b6muw',
-        'AIzaSyAyNEy3Z1liYukoPfg-D4asaIbasjk5-58'
-    ],
+    API_KEYS: [], // Loaded from .env file at runtime
     MODEL: 'gemini-2.5-flash',
     SYSTEM_PROMPT: `You are a hilarious, sarcastic Hyderabadi female commentator watching a snake game. 
     Your job is to roast the player non-stop in authentic Hyderabadi Dakhini slang.
