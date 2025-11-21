@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Snake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+
+        <div id="ui-layer">
+            <div id="start-screen" class="screen active">
+                <h1 class="title">SERPENTINE</h1>
+                <p class="subtitle">Realistic Movement & Physics</p>
+
+                <div class="selector-group">
+                    <div class="selector">
+                        <span class="label">THEME</span>
+                        <select id="theme-select">
+                            <option value="0">Neon Night</option>
+                            <option value="1">Cyber Red</option>
+                            <option value="2">Deep Ocean</option>
+                            <option value="3">Solar Flare</option>
+                            <option value="4">Cotton Candy</option>
+                            <option value="5">Matrix</option>
+                            <option value="6">High Contrast</option>
+                            <option value="7">Nano Cyber</option>
+                            <option value="8">Nano Abstract</option>
+                            <option value="9">Nano Jungle</option>
+                        </select>
+                    </div>
+                    <div class="selector">
+                        <span class="label">SNAKE TYPE</span>
+                        <select id="snake-select">
+                            <option value="classic">Classic</option>
+                            <option value="neon">Neon Glow</option>
+                            <option value="cobra">Cobra</option>
+                        </select>
+                    </div>
+                    <div class="selector">
+                        <span class="label">SPEED</span>
+                        <select id="speed-select">
+                            <option value="0">Slow</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="2">Fast</option>
+                            <option value="3">Insane</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="start-btn" class="btn primary">Start Game</button>
+                <button id="continue-btn" class="btn secondary" style="display: none;">Continue</button>
+            </div>
+
+            <div id="game-over-screen" class="screen hidden">
+                <h1 class="title">GAME OVER</h1>
+                <p id="final-score">Score: 0</p>
+                <button id="restart-btn" class="btn primary">Try Again</button>
+            </div>
+
+            <div id="pause-menu" class="screen hidden">
+                <h1 class="title">PAUSED</h1>
+                <button id="resume-btn" class="btn primary">Resume</button>
+                <button id="save-quit-btn" class="btn secondary">Save & Quit</button>
+            </div>
+
+            <div id="hud" class="hidden">
+                <div class="score-container">
+                    <span class="label">SCORE</span>
+                    <span id="score-display">0</span>
+                </div>
+                <div id="powerup-indicators"></div>
+                <div class="controls-container">
+                    <button id="pause-btn">⏸</button>
+                    <button id="mute-btn">🔊</button>
+                </div>
+                <div class="level-container">
+                    <span class="label">THEME</span>
+                    <span id="theme-display">Neon Night</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
