@@ -6,6 +6,8 @@ import EnemySnake from './EnemySnake.js';
 import PowerUp from './PowerUp.js';
 import AudioManager from './AudioManager.js';
 import GeminiService from './GeminiService.js';
+import MobileController from './MobileController.js';
+import TouchController from './TouchController.js';
 import { GAME_CONFIG, POWERUP_CONFIG, WORLD_CONFIG } from '../config.js';
 
 export default class Game {
@@ -63,6 +65,14 @@ export default class Game {
         };
         this.isPreloading = false;
         this.preloadTaunts();
+
+        // Mobile Support
+        this.mobileController = new MobileController();
+        this.touchController = null;
+
+        if (this.mobileController.isMobile()) {
+            this.setupMobileControls();
+        }
     }
 
     async preloadTaunts() {
@@ -95,7 +105,35 @@ export default class Game {
         console.log(`Pool '${category}' size: ${this.tauntPool[category].length}`);
     }
 
+    setupMobileControls() {
+        // Initialize touch controller
+        this.touchController = new TouchController(this);
+
+        // Prevent default touch behaviors
+        this.mobileController.preventDefaultTouchBehaviors();
+
+        // Show touch controls
+        const touchControls = document.getElementById('touch-controls');
+        if (touchControls) {
+            touchControls.classList.remove('hidden');
+        }
+
+        console.log('Mobile controls initialized');
+    }
+
     start() {
+        // Mobile: Check orientation and request landscape
+        if (this.mobileController && this.mobileController.isMobile()) {
+            if (!this.mobileController.isLandscape()) {
+                // Show orientation prompt and wait for landscape
+                this.mobileController.showOrientationPrompt();
+                return; // Don't start game until in landscape
+            }
+
+            // Request fullscreen and landscape lock
+            this.mobileController.requestLandscape();
+        }
+
         this.running = true;
         this.paused = false;
         this.score = 0;

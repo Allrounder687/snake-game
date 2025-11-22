@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
     <title>Realistic Snake</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +15,12 @@
 </head>
 
 <body>
+    <!-- Orientation Prompt (Mobile Only) -->
+    <div id="orientation-prompt" class="hidden">
+        <div class="rotate-icon">📱 ↻</div>
+        <p>Please rotate your device to landscape mode</p>
+    </div>
+
     <div id="game-container">
         <canvas id="game-canvas"></canvas>
 
@@ -86,6 +95,14 @@
                     <span id="theme-display">Neon Night</span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Touch Controls (Mobile Only) -->
+    <div id="touch-controls" class="hidden">
+        <div id="virtual-joystick">
+            <div class="joystick-base"></div>
+            <div class="joystick-stick"></div>
         </div>
     </div>
 
