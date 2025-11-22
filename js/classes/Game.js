@@ -112,11 +112,8 @@ export default class Game {
         // Prevent default touch behaviors
         this.mobileController.preventDefaultTouchBehaviors();
 
-        // Show touch controls
-        const touchControls = document.getElementById('touch-controls');
-        if (touchControls) {
-            touchControls.classList.remove('hidden');
-        }
+        // Touch controls will be shown when game starts
+        // Keep them hidden on menu screens to avoid blocking UI buttons
 
         console.log('Mobile controls initialized');
     }
@@ -172,6 +169,11 @@ export default class Game {
         this.audioManager.playMusic();
         this.triggerTaunt('started the game');
 
+        // Show touch controls on mobile during gameplay
+        if (this.touchController) {
+            this.touchController.show();
+        }
+
         requestAnimationFrame((t) => this.loop(t));
     }
 
@@ -179,6 +181,12 @@ export default class Game {
         this.running = false;
         this.audioManager.stopMusic();
         this.triggerTaunt('died with score ' + this.score);
+
+        // Hide touch controls when returning to menu
+        if (this.touchController) {
+            this.touchController.hide();
+        }
+
         window.dispatchEvent(new CustomEvent('gameover', { detail: { score: this.score } }));
     }
 
